@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Thanksgiving Miles! 🍂</title>
+    <title>즐거운 추수감사절 보내, 마일스! 🍂</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
     
     <style>
         /* --- CSS Variables & Reset --- */
@@ -25,10 +25,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Lora', serif;
+            font-family: 'Noto Serif KR', serif; /* Korean Serif for body */
             color: var(--color-brown);
             min-height: 100vh;
-            overflow: hidden; /* Prevent scrollbars from floating elements */
+            overflow: hidden;
             position: relative;
             display: flex;
             justify-content: center;
@@ -37,7 +37,7 @@
             background: linear-gradient(135deg, #f6d365 0%, #fda085 50%, #fbc2eb 100%); 
         }
 
-        /* --- Noise Texture Overlay (Film Grain Look) --- */
+        /* --- Noise Texture Overlay --- */
         .texture-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -107,19 +107,23 @@
         }
 
         h1.intro-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-family: 'Gowun Batang', serif; /* Korean Heading Font */
+            font-weight: 700;
+            font-size: 2.2rem;
             color: var(--color-cranberry);
             margin-bottom: 1rem;
             text-shadow: 1px 1px 0px rgba(255,255,255,0.4);
+            line-height: 1.4;
+            word-break: keep-all; /* Prevents breaking words awkwardly in Korean */
         }
 
         button#open-button {
             background: var(--color-cranberry);
             color: #fff;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Gowun Batang', serif;
+            font-weight: 700;
             font-size: 1.2rem;
-            letter-spacing: 1px;
+            letter-spacing: 0px;
             padding: 16px 48px;
             border: none;
             border-radius: 50px;
@@ -170,24 +174,27 @@
         }
 
         .letter-heading {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Gowun Batang', serif;
+            font-weight: 700;
             color: var(--color-cranberry);
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 1.5rem;
-            line-height: 1.2;
+            line-height: 1.3;
+            word-break: keep-all;
         }
 
         .letter-body {
-            font-size: 1.15rem;
-            line-height: 1.8em; /* Aligns with the paper lines */
+            font-size: 1.1rem;
+            line-height: 1.8em;
             text-align: left;
             margin-bottom: 2rem;
             color: #333;
+            word-break: keep-all; /* Important for Korean readability */
         }
 
         .signature {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.2rem;
+            font-family: 'Nanum Pen Script', cursive; /* Korean Handwriting Font */
+            font-size: 2.5rem;
             text-align: right;
             color: var(--color-pumpkin);
             margin-top: 1rem;
@@ -220,7 +227,7 @@
         @media (max-width: 600px) {
             .glass-container { width: 95%; padding: 1.5rem; }
             .paper-card { padding: 25px 20px; }
-            h1.intro-title { font-size: 2rem; }
+            h1.intro-title { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -234,56 +241,26 @@
         
         <div id="opening-screen">
             <div class="turkey-icon">🦃</div>
-            <h1 class="intro-title">A Special Note<br>For You</h1>
-            <button id="open-button" onclick="revealLetter()">Open Card</button>
+            
+            <h1 class="intro-title">당신을 위한<br>특별한 메시지</h1>
+            <button id="open-button" onclick="revealLetter()">카드 열기</button>
         </div>
 
         <div id="letter-content">
             <div class="paper-card">
-                <h2 class="letter-heading">Happy Thanksgiving Miles!</h2>
+                <h2 class="letter-heading">즐거운 추수감사절 보내,<br>마일스!</h2>
                 <div class="letter-body">
-                    <p>I am truly thankful for the wonderful memories we've made together this year. I am thankful for meeting such an amazing individual and couldn't have asked for a more loving partner.</p>
+                    <p>올해 우리가 함께 만든 멋진 추억들에 정말 감사해. 이렇게 멋진 사람을 만나게 되어서, 그리고 이보다 더 사랑스러운 연인은 없을 거라는 생각에 항상 고마움을 느껴.</p>
                     <br>
-                    <p>I hope we can continue to grow together and have even more fun during this holiday season. I love you. &lt;3</p>
+                    <p>앞으로도 함께 성장하며 이번 연휴 동안 더 즐거운 시간 보냈으면 좋겠어. 사랑해. &lt;3</p>
                 </div>
-                <div class="signature">- Love, Soobin</div>
+                <div class="signature">- 사랑을 담아, 수빈</div>
             </div>
             
             <div class="footer-link">
                 Visit: <a href="https://github.com/subeez/turkeyboii" target="_blank">github.com/subeez/turkeyboii</a>
             </div>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-  <circle cx="250" cy="250" r="200" fill="#fff5e6" opacity="0.5" />
-
-  <g transform="translate(250, 280)">
-    <ellipse cx="0" cy="-100" rx="60" ry="120" fill="#d2691e" transform="rotate(-30)"/>
-    <ellipse cx="0" cy="-100" rx="60" ry="120" fill="#cd853f" transform="rotate(-15)"/>
-    <ellipse cx="0" cy="-100" rx="60" ry="120" fill="#daa520"/>
-    <ellipse cx="0" cy="-100" rx="60" ry="120" fill="#cd853f" transform="rotate(15)"/>
-    <ellipse cx="0" cy="-100" rx="60" ry="120" fill="#d2691e" transform="rotate(30)"/>
-  </g>
-
-  <ellipse cx="250" cy="300" rx="100" ry="90" fill="#8b4513" stroke="#5c3317" stroke-width="5"/>
-
-  <circle cx="250" cy="200" r="60" fill="#a0522d" stroke="#5c3317" stroke-width="5"/>
-
-  <path d="M220 190 Q230 200 240 190" stroke="#3e2723" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M260 190 Q270 200 280 190" stroke="#3e2723" stroke-width="4" fill="none" stroke-linecap="round"/>
-
-  <path d="M250 210 L235 230 L265 230 Z" fill="#ff8c00" stroke="#e67300" stroke-width="3" stroke-linejoin="round"/>
-
-  <path d="M250 215 C240 235, 260 235, 250 255" stroke="#dc143c" stroke-width="6" fill="none" stroke-linecap="round"/>
-
-  <path d="M160 280 C140 330, 200 350, 220 330" fill="#8b4513" stroke="#5c3317" stroke-width="5" stroke-linecap="round"/>
-  <path d="M340 280 C360 330, 300 350, 280 330" fill="#8b4513" stroke="#5c3317" stroke-width="5" stroke-linecap="round"/>
-
-  <path d="M220 380 L210 410 L230 410 Z" fill="#ff8c00" stroke="#e67300" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M280 380 L270 410 L290 410 Z" fill="#ff8c00" stroke="#e67300" stroke-width="4" stroke-linejoin="round"/>
-
-  <ellipse cx="200" cy="210" rx="10" ry="6" fill="#ff69b4" opacity="0.6"/>
-  <ellipse cx="300" cy="210" rx="10" ry="6" fill="#ff69b4" opacity="0.6"/>
-</svg>
 
     </main>
 
