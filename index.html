@@ -3,42 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Thanksgiving 🍂</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Happy Thanksgiving Miles! 🍂</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --color-pumpkin: #E87525;
+            --color-cranberry: #A91B26;
+            --color-gold: #DDA15E;
+            --color-cream: #FDFBF7;
+            --color-brown: #4A3B32;
+            --color-leaf: #606c38;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lora', serif;
+            color: var(--color-brown);
+            min-height: 100vh;
+            overflow: hidden; /* Prevent scrollbars from floating elements */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Rich Autumn Gradient */
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 50%, #fbc2eb 100%); 
+        }
+
+        /* --- Noise Texture Overlay (Film Grain Look) --- */
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        }
+
+        /* --- Floating Background Emojis --- */
+        .floating-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .floater {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: floatUp 15s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Main Glass Container --- */
+        .glass-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 650px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow-soft);
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* --- The Opening Screen --- */
+        #opening-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .turkey-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1.intro-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--color-cranberry);
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.4);
+        }
+
+        button#open-button {
+            background: var(--color-cranberry);
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(169, 27, 38, 0.3);
+            transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+        }
+
+        button#open-button:hover {
+            background: var(--color-pumpkin);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(232, 117, 37, 0.4);
+        }
+
+        /* --- The Letter Content (Hidden Initially) --- */
+        #letter-content {
+            display: none;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        #letter-content.visible {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .paper-card {
+            background-color: var(--color-cream);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            margin-top: 10px;
+            /* Texture for paper */
+            background-image: linear-gradient(#eee .1em, transparent .1em);
+            background-size: 100% 1.8em;
+        }
+
+        .paper-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 2px solid var(--color-gold);
+            margin: 8px;
+            pointer-events: none;
+        }
+
+        .letter-heading {
+            font-family: 'Playfair Display', serif;
+            color: var(--color-cranberry);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .letter-body {
+            font-size: 1.15rem;
+            line-height: 1.8em; /* Aligns with the paper lines */
+            text-align: left;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            text-align: right;
+            color: var(--color-pumpkin);
+            margin-top: 1rem;
+            transform: rotate(-5deg);
+        }
+
+        .footer-link {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .footer-link a { color: var(--color-cranberry); text-decoration: none; font-weight: bold; }
+
+        /* --- Leaf/Confetti Particle Styles --- */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--color-gold);
+            animation: fall-confetti 3s linear forwards;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        @keyframes fall-confetti {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .glass-container { width: 95%; padding: 1.5rem; }
+            .paper-card { padding: 25px 20px; }
+            h1.intro-title { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="emote-container large" style="top: 8%; left: 4%;">🍁</div>
-    <div class="emote-container medium" style="top: 18%; right: 8%;">🦃</div>
-    <div class="emote-container small" style="bottom: 18%; left: 12%;">🥧</div>
-    <div class="emote-container medium" style="top: 50%; right: 5%;">🧡</div>
-    <div class="emote-container small" style="bottom: 6%; right: 18%;">🌽</div>
-    <div class="emote-container small" style="top: 5%; right: 40%;">🍂</div>
-    <div class="emote-container medium" style="bottom: 22%; right: 40%;">🍗</div>
-    <div class="emote-container large" style="top: 40%; left: 6%;">🦃</div>
-    <div class="emote-container small" style="top: 65%; left: 30%;">🥔</div>
-    <div class="emote-container medium" style="bottom: 10%; left: 50%;">🍎</div>
+    <div class="texture-overlay"></div>
 
-    <div class="container">
-        <div id="opening-screen" class="page-border">
-            <button id="open-button">Happy Thanksgiving &lt;3</button>
-        </div>
+    <div class="floating-bg" id="bg-container"></div>
 
-        <div id="letter-content" class="hidden">
-            <h1 class="heading">A Special Thanksgiving Message</h1>
-            <div class="letter-box">
-                <p>Happy Thanksgiving Miles!</p>
-                <p>I am truly thankful for the wonderful memories we've made together this year. I am thankful for meeting such an amazing individual and couldn't have asked for a more loving partner. I hope we can continue to grow together and have even more fun during this holiday season. I love you. &lt;3</p>
-                <p class="signature">-Love, Soobin</p>
-            </div>
-
-            </section>
-        </div>
-            <div class="repo-link">Visit: <a href="https://github.com/subeez/turkeyboii" target="_blank" rel="noopener">github.com/subeez/turkeyboii</a></div>
+    <main class="glass-container">
         
+        <div id="opening-screen">
+            <div class="turkey-icon">🦃</div>
+            <h1 class="intro-title">A Special Note<br>For You</h1>
+            <button id="open-button" onclick="revealLetter()">Open Card</button>
         </div>
-    </div>
 
-    <script src="script.js"></script>
+        <div id="letter-content">
+            <div class="paper-card">
+                <h2 class="letter-heading">Happy Thanksgiving Miles!</h2>
+                <div class="letter-body">
+                    <p>I am truly thankful for the wonderful memories we've made together this year. I am thankful for meeting such an amazing individual and couldn't have asked for a more loving partner.</p>
+                    <br>
+                    <p>I hope we can continue to grow together and have even more fun during this holiday season. I love you. &lt;3</p>
+                </div>
+                <div class="signature">- Love, Soobin</div>
+            </div>
+            
+            <div class="footer-link">
+                Visit: <a href="https://github.com/subeez/turkeyboii" target="_blank">github.com/subeez/turkeyboii</a>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // 1. Generate Floating Background Elements
+        const emotes = ['🍂', '🍁', '🥧', '🧡', '🌽', '🍗', '🍎', '🥔'];
+        const bgContainer = document.getElementById('bg-container');
+
+        function createFloater() {
+            const el = document.createElement('div');
+            el.innerText = emotes[Math.floor(Math.random() * emotes.length)];
+            el.classList.add('floater');
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.animationDuration = (Math.random() * 10 + 10) + 's'; // 10-20s duration
+            el.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+            bgContainer.appendChild(el);
+
+            // Cleanup
+            setTimeout(() => { el.remove(); }, 20000);
+        }
+
+        // Initialize background loop
+        setInterval(createFloater, 800);
+        // Create initial batch
+        for(let i=0; i<15; i++) createFloater();
+
+
+        // 2. Interaction Logic
+        function revealLetter() {
+            const openScreen = document.getElementById('opening-screen');
+            const letterContent = document.getElementById('letter-content');
+            const btn = document.getElementById('open-button');
+
+            // Button Click Animation
+            btn.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                openScreen.style.display = 'none';
+                letterContent.classList.add('visible');
+                fireConfetti();
+            }, 200);
+        }
+
+        // 3. Simple Confetti / Leaf Fall Effect on Click
+        function fireConfetti() {
+            const colors = ['#E87525', '#A91B26', '#DDA15E', '#606c38'];
+            const shapes = ['🍂', '🍁', '●', '■']; 
+            
+            for (let i = 0; i < 50; i++) {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti');
+                
+                // Randomize appearance
+                const isShape = Math.random() > 0.5;
+                if(isShape) {
+                    conf.innerText = shapes[Math.floor(Math.random() * 2)]; // Only leaves
+                    conf.style.background = 'transparent';
+                    conf.style.fontSize = Math.random() * 20 + 10 + 'px';
+                } else {
+                    conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    conf.style.width = Math.random() * 8 + 4 + 'px';
+                    conf.style.height = conf.style.width;
+                }
+
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = -10 + 'px';
+                conf.style.animationDuration = Math.random() * 2 + 1.5 + 's';
+                
+                document.body.appendChild(conf);
+                
+                setTimeout(() => conf.remove(), 4000);
+            }
+        }
+    </script>
 </body>
 </html>
